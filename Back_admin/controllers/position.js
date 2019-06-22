@@ -3,10 +3,6 @@ const postionModel=require("../models/position")
 class PositionController {
   constructor(){}
 
-  // find(req, res, next) {
-  //   res.set('Content-Type', 'application/json; charset=utf-8')
-  //   res.render('succ', {data: 'ok'})
-  // }
   // 把前端发来的数据进行存储
   async save(req,res,next){
     console.log(req.body);
@@ -57,7 +53,14 @@ class PositionController {
       })
     }
   }
-
+  // 自己定义的查询函数，有可能删除
+  async search(req,res,next){
+    res.set("Content-type","application/json;charset=utf-8");
+    
+    let result=await postionModel.search(req.body.campanyName);
+    res.render("succ",{data:JSON.stringify(result)});
+  }
+  
 }
 
 const positionController = new PositionController()

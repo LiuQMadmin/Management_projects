@@ -5,7 +5,7 @@ import activeMiddleware from './active'
 import* as positionController from "../controllers/position"
 import* as indexController from "../controllers/index"
 import* as oAuth from "../utils/oAuth"
-// 引入进来路由的插件
+// 引入进来路由的插件（可以实现动态页面精准的插入）
 const router=new SEMRouter("router-view");
 // 有请求/的函数就执行indexController.render
 router.route("/",indexController.render);

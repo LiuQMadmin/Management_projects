@@ -4,6 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 // 这里是路由的位置
+// 后端的路由的可以说这么回事，在app.js中配置app.use('/api/users', usersRouter);
+// app.use('/api/position', posRouter)等路径来执行不同的函数，执行的函数里面又可以
+// 分为不同路径，进而实现了路由，精准实现路径的访问
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var posRouter = require('./routes/position')

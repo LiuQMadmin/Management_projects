@@ -40,7 +40,7 @@ function bindPositionListEvent(res){
   $('#router-view').off("click","#addbtn").on('click', '#addbtn', (e) => {
     res.go('/position_add')
   })
-  // 这里都是用代理实现按钮的绑定，因为这个数据是动态插入的
+  // 这里都是用代理实现按钮的绑定，因为这个数据是动态插入的，这里是删除按钮的
   $("#router-view").off("click",".btn-delete").on("click",".btn-delete",function(e){
     // 发送一个ajax请求
     $.ajax({
@@ -64,8 +64,40 @@ function bindPositionListEvent(res){
 
     })
   })
+
+  // 给搜索按钮绑定一个点击按钮
+  $("#router-view").off("click","#possearch").on("click","#possearch",(e)=>{
+    console.log($("#keywords").val());
+      $.ajax({
+        url:"api/position",
+        type:"SEARCH",
+        data:{
+          // closest是找李这个按钮元素最近的tr元素,然后找到绑定的在tr上面的id
+          campanyName:$("#keywords").val()
+        },
+        headers:{
+          "X-Access-Token":localStorage.getItem("token")
+        },
+        success(result){
+          console.log(result);
+          // 动态添加职位展示的页面
+          res.render(positionTpl(
+            {
+              data: result.data,
+              hasResult: result.data.length > 0
+            }
+          ))
+        }
+      })
+    })
+
+
+
+
+
+
 }
-//给职位表单中那妞添加点击事件
+//给职位表单中按钮添加点击事件
 function bindPostionAddEvent(res){
   // 点击这个按钮就会返回职位展示页面
   $("#posback").on("click",(e)=>{
@@ -86,6 +118,5 @@ function bindPostionAddEvent(res){
       })
     })
 
-    
 
 }

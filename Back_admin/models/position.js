@@ -32,6 +32,15 @@ const db=require("../utils/db");
         // 调用数据库函数进行数据的查找
         return this.positonModel.findByIdAndRemove(id)
     }
+    // 这个是定义的搜索函数，有可能删除
+    search(companyName){
+        // console.log(companyName);
+        return this.positonModel.find({companyName});
+    }
+
+
+
+
     time(){
         let myDate=new Date();
         let yue=myDate.getMonth()+1;
