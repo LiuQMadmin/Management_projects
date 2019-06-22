@@ -37,6 +37,27 @@ class PositionController {
     // 返回正确格式的json字符串
     res.render("succ",{data:JSON.stringify(result)});
   }
+  // 产出路由直接调用这个函数
+  async delete(req, res, next){
+    // 调用删除函数
+    let result =await postionModel.delete(req.body.id);
+    // 打印看看这个结果是啥
+    console.log(result);
+    if(result){
+      res.render("succ",{
+        data:JSON.stringify({
+          message:"数据删除成功"
+        })
+      })
+    }else{
+      res.render("succ",{
+        data:JSON.stringify({
+          message:"数据删除失败"
+        })
+      })
+    }
+  }
+
 }
 
 const positionController = new PositionController()

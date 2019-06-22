@@ -9,8 +9,8 @@ import* as oAuth from "../utils/oAuth"
 const router=new SEMRouter("router-view");
 // 有请求/的函数就执行indexController.render
 router.route("/",indexController.render);
-// 有请求/position的positionController.render
-router.route("/position",positionController.render);
+// 有请求/position/任和内容的positionController.render
+router.route("/position/:_",positionController.render);
 // 如果没有登录的话就不能进行职位操作
 
 

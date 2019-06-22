@@ -10,5 +10,5 @@ router.route('/')
   .all(oAuthbase)
   .get(positionController.findAll)
   .post(fileUpload.uploadfile,positionController.save)
-
+  .delete(positionController.delete)
 module.exports = router

@@ -10,7 +10,7 @@
 import positionAddTpl from "../views/position_add.hbs"
 import positionTpl from '../views/position_list.hbs'
 import oAuth from '../utils/oAuth'
-
+import randomstring from "randomstring"
 export const render = async (req, res, next) => {
   let result = await oAuth()
   if (result.data.isSignin) {
@@ -21,7 +21,6 @@ export const render = async (req, res, next) => {
       },
       success(result){
         // 动态添加职位展示的页面
-        console.log(result.data)
         res.render(positionTpl(
           {
             data: result.data,
@@ -44,8 +43,32 @@ export const add=(req,res,next)=>{
 }
 
 function bindPositionListEvent(res){
-  $('#router-view').on('click', '#addbtn', (e) => {
+  $('#router-view').off("click","#addbtn").on('click', '#addbtn', (e) => {
     res.go('/position_add')
+  })
+  // 这里都是用代理实现按钮的绑定，因为这个数据是动态插入的
+  $("#router-view").off("click",".btn-delete").on("click",".btn-delete",function(e){
+    // 发送一个ajax请求
+    $.ajax({
+      url:"/api/position",
+      type:"DELETE",
+      // 传送给后端的数据
+      data:{
+        // closest是找李这个按钮元素最近的tr元素,然后找到绑定的在tr上面的id
+        id:$(this).closest("tr").attr("data-id")
+      },
+      headers: {
+        'X-Access-Token': localStorage.getItem('token')
+      },
+      success(result){
+        if(result.ret){
+          res.go("/position/"+randomstring.generate(7))
+        }else{
+          alert(result.data);
+        }
+      }
+
+    })
   })
 }
 //给职位表单中那妞添加点击事件
@@ -68,18 +91,7 @@ function bindPostionAddEvent(res){
         }
       })
     })
-    // $.ajax({
-    //   // url:"/api/position",
-    //   // type:"POST",
-    //   // // 把表单中的数据全部传送过去
-    //   // data:$("#possave").serialize(),
-    //   // headers:{
-    //   //   "X-Access-Token":localStorage.getItem("token")
-    //   // },
-    //   // success(result){
-    //   //   res.back()
-    //   // }
-    // })
+   
  
 
 

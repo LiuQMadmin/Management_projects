@@ -25,6 +25,12 @@ const db=require("../utils/db");
         // 回来再进行排序
         return this.positonModel.find({}).sort({_id: -1});
     }
+    // 删除数据
+    delete(id){
+        console.log(id)
+        // 调用数据库函数进行数据的查找
+        return this.positonModel.findByIdAndRemove(id)
+    }
  }
 let positonModel=new Position();
  module.exports=positonModel;
