@@ -1,10 +1,3 @@
-// const positionTpl=require("../views/position.hbs");
-// export const render=(req,res,next)=>{
-//         // 花括号里面可以传数据，直接调用摸板就行
-//         res.render(positionTpl({}));
- 
-    
-// }
 
 // 新写的代码
 import positionAddTpl from "../views/position_add.hbs"
@@ -43,6 +36,7 @@ export const add=(req,res,next)=>{
 }
 
 function bindPositionListEvent(res){
+  // 给添加按钮绑定一个事件
   $('#router-view').off("click","#addbtn").on('click', '#addbtn', (e) => {
     res.go('/position_add')
   })
@@ -79,7 +73,7 @@ function bindPostionAddEvent(res){
   })
 
 
-  // 给提交按钮绑定一个时间，把表单中的数据传送到后端
+  // 给提交按钮绑定一个事件，把表单中的数据传送到后端
   $("#possubmit").on("click",(e)=>{
       $('#possave').ajaxSubmit({
         resetForm: true,
@@ -91,8 +85,7 @@ function bindPostionAddEvent(res){
         }
       })
     })
-   
- 
 
+    
 
 }
