@@ -13,6 +13,14 @@ router.route("/",indexController.render);
 router.route("/position",positionController.render);
 // 如果没有登录的话就不能进行职位操作
 
+
+//这个是点击的添加按钮之后需要展示页面的路由
+router.route("/position_add",positionController.add); 
+
+
+
+
+
 // 这里是为了实现重定向
 // 有任何没有存在的请求都去请求重定向到/下面去请求
 router.route('*', (req, res, next) => {

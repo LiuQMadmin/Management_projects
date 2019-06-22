@@ -16,8 +16,7 @@ const oAuth = (req, res, next) => {
         })
       })
     } else {
-      // 走下一个请求position.js中的
-      next()
+     
       //  密串匹配的时候返回的状态就用succ摸板返回渲染称json数据返回给前端
       res.render('succ', {
         data: JSON.stringify({
@@ -26,6 +25,8 @@ const oAuth = (req, res, next) => {
           isSignin: true
         })
       })
+       // 走下一个请求position.js中的
+      //  next()
     }
   })
 }
