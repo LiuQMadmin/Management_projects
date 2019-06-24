@@ -22,10 +22,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// 这里定义的是一级路由
+
 app.use('/', indexRouter);
 //用户登录和注册等一系列操作时就走这个路由
+// usersRouter里面定义了多个二级路由，根据api后面跟的参数进行二级路由的选择
 app.use('/api/users', usersRouter);
 // 只有用户登录之后才可以管理职位
+// posRouter里面定义了多个二级路由，根据api后面跟的参数进行二级路由的选择
 app.use('/api/position', posRouter)
 
 

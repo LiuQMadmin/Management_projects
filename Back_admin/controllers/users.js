@@ -5,6 +5,7 @@ const fs = require('fs')
 const path = require('path')
 
 class UserController {
+  // 这里是把密码加密后存到数据库里面的
   hashPassword(pwd) {
     return new Promise((resolve) => {
       bcrypt.hash(pwd, 10, (err, hash) => {
@@ -12,7 +13,7 @@ class UserController {
       })
     })
   }
-
+// 这个函数是把数据库里面的密码加密后进行对比，验证是不是密码匹配
   comparePassword(pwd, hash) {
     return new Promise((resolve) => {
       bcrypt.compare(pwd, hash, function(err, res) {
@@ -20,7 +21,7 @@ class UserController {
       })
     })
   }
-
+// 这个是
   genToken(username) {
     // let cert = fs.readFileSync(path.resolve(__dirname, '../keys/rsa_private_key.pem'))
     let cert = 'hello'
@@ -62,15 +63,13 @@ class UserController {
 
   async signin(req, res, next) {
     res.set('Content-Type', 'application/json; charset=utf-8')
-
+    // 调用数据库的查询语句
     let result = await userModel.select(req.body)
-    console.log(result);
     if (result) {
       // if (await userController.comparePassword(req.body.password, result['password'])) {
         if(result.password===req.body.password){
-        //生成token
+        //生成token，并发送给后端
         res.header('X-Access-Token', userController.genToken(result.username))
-       
         res.render('succ', {
           data: JSON.stringify({
             username: result['username'],

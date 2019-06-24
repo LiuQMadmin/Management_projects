@@ -10,8 +10,12 @@ const fileUpload=require("../middlewares/upload-file")
 router.route('/')
 // 这里先进行认证，如果认证不通过，下面的就无法执行
   .all(oAuthbase)
+  // 这个是显示所有的路由
   .get(positionController.findAll)
+  // 这个是插入数据和上传图片的路由
   .post(fileUpload.uploadfile,positionController.save)
+  // 这个是删除数据的路由
   .delete(positionController.delete)
+  // 这个是查询数据的路由
   .search(positionController.search)
 module.exports = router
