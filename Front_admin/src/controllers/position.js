@@ -64,6 +64,26 @@ function bindPositionListEvent(res){
 
     })
   })
+  $("#router-view").off("click",".btn-update").on("click",".btn-update",function(){
+    // 发送ajax请求
+    $.ajax({
+      url:"api/position",
+      type:"PATCH",
+      data:{
+        id:$(this).closest("tr").attr("data-id")
+      },
+      headers: {
+        'X-Access-Token': localStorage.getItem('token')
+      },
+      success(result){
+        if(result.ret){
+          res.go("/position/"+randomstring.generate(7))
+        }else{
+          alert(result.data);
+        }
+      }
+    })
+  })
 
   // 给搜索按钮绑定一个点击按钮
   $("#router-view").off("click","#possearch").on("click","#possearch",(e)=>{
