@@ -21,6 +21,7 @@ class FileUpload{
 
 
     uploadfile(req,res,next){
+      res.set('Content-Type', 'application/json; charset=utf-8')
       let filename = ''
     let storage=multer.diskStorage({
       // 前端发送过来的图片存储再后端的那个位置
@@ -53,16 +54,23 @@ class FileUpload{
     }).single("companyLogo")
    
     upload(req, res, (err) => {
-      if (err) {
-        res.render('fail', {
-          data: JSON.stringify(err.message)
-        })
-      } else {
-        // 传递filename 到下个中间件
-        req.filename = filename
+      if(req.body.companyLogo === ''){
         next()
+      }else{
+        if (err) {
+          res.render('fail', {
+            data: JSON.stringify(err.message)
+          })
+        } else {
+          // 传递filename 到下个中间件
+          req.filename = filename
+          next()
+        }
       }
     })
+
+
+    
   }
 }
 const fileUpload=new FileUpload();

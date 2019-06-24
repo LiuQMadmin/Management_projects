@@ -60,6 +60,32 @@ class PositionController {
     let result=await postionModel.search(req.body.campanyName);
     res.render("succ",{data:JSON.stringify(result)});
   }
+  // 修改的数据返回展示
+  async findOne(req, res, next){
+    res.set("Content-type","application/json;charset=utf-8");
+    let result=await postionModel.findOne(req.query.id);
+    res.render("succ",{data:JSON.stringify(result)})
+  }
+  async update(req,res,next){
+    res.set('Content-Type', 'application/json; charset=utf-8');
+    // 删除req.body里面这个字段
+    delete req.body.companyLogo
+    req.body=req.filename ? {...req.body,companyLogo:req.filename}:req.body;
+    let result = await postionModel.update(req.body.id,req.body);
+    if (result) {
+      res.render('succ', {
+        data: JSON.stringify({
+          message: '数据修改成功.'
+        })
+      })
+    } else {
+      res.render('fail', {
+        data: JSON.stringify({
+          message: '数据修改失败.'
+        })
+      })
+    }
+  }
   
 }
 

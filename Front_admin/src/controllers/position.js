@@ -2,6 +2,7 @@
 // 新写的代码
 import positionAddTpl from "../views/position_add.hbs"
 import positionTpl from '../views/position_list.hbs'
+import positionUpdateTpl from "../views/position_update.hbs"
 import oAuth from '../utils/oAuth'
 import randomstring from "randomstring"
 export const render = async (req, res, next) => {
@@ -34,6 +35,30 @@ export const add=(req,res,next)=>{
   res.render(positionAddTpl({}));
   bindPostionAddEvent(res);
 }
+export const update=(req,res,next)=>{
+  $.ajax({
+    // 想后端请求的url
+    url: '/api/position/one',
+    data: {
+      id: req.params.id
+    },
+    headers: {
+      'X-Access-Token': localStorage.getItem('token')
+    },
+    success(result) {
+      if (result.ret) {
+        res.render(positionUpdateTpl({
+          ...result.data
+        }))
+      } else {
+        alert(result.data)
+      }
+    }
+  })
+  // 点击修改按钮之后就会出现渲染的摸板
+  // res.render(positionUpdateTpl({}));
+  bindPostionUpdateEvent(req, res);
+}
 
 function bindPositionListEvent(res){
   // 给添加按钮绑定一个事件
@@ -64,25 +89,9 @@ function bindPositionListEvent(res){
 
     })
   })
-  $("#router-view").off("click",".btn-update").on("click",".btn-update",function(){
-    // 发送ajax请求
-    $.ajax({
-      url:"api/position",
-      type:"PATCH",
-      data:{
-        id:$(this).closest("tr").attr("data-id")
-      },
-      headers: {
-        'X-Access-Token': localStorage.getItem('token')
-      },
-      success(result){
-        if(result.ret){
-          res.go("/position/"+randomstring.generate(7))
-        }else{
-          alert(result.data);
-        }
-      }
-    })
+  $("#router-view").off("click",".btn-update").on("click",".btn-update",function(e){
+  //  获取id的值，用来去数据库里面查询数据进行添加进来
+    res.go("/position_update/"+$(this).closest("tr").attr("data-id"))
   })
 
   // 给搜索按钮绑定一个点击按钮
@@ -123,8 +132,6 @@ function bindPostionAddEvent(res){
   $("#posback").on("click",(e)=>{
     res.back();
   })
-
-
   // 给提交按钮绑定一个事件，把表单中的数据传送到后端
   $("#possubmit").on("click",(e)=>{
       $('#possave').ajaxSubmit({
@@ -137,6 +144,24 @@ function bindPostionAddEvent(res){
         }
       })
     })
+}
+// 这里是定义了更新页面里面按钮的监听
+function bindPostionUpdateEvent(req,res){
+  $("#router-view").off("click","#posback").on("click","#posback",(e)=>{
+    res.back();
+  })
 
-
+  // 这里定义的是提交按钮的功能
+  $("#router-view").off('click', '#possubmit').on('click', '#possubmit',(e)=>{
+    $('#posupdate').ajaxSubmit({
+      resetForm: true,
+      headers: {
+        'X-Access-Token': localStorage.getItem('token')
+      },
+      success(result) {
+        res.back()
+      }
+    })
+  })
+  
 }

@@ -17,6 +17,8 @@ router.route("/position/:_",positionController.render);
 //这个是点击的添加按钮之后需要展示页面的路由
 router.route("/position_add",positionController.add); 
 
+// 这个是更新的路由
+router.route("/position_update/:id",positionController.update)
 
 
 

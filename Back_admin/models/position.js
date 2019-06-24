@@ -37,8 +37,13 @@ const db=require("../utils/db");
     //     // console.log(companyName);
     //     return this.positonModel.find({companyName});
     // }
-
-
+    findOne(id){
+        return this.positonModel.findById(id);
+    }
+    // 更新数据
+    update(id, update) {
+        return this.positonModel.findByIdAndUpdate(id, update)
+    }
 
 
     time(){

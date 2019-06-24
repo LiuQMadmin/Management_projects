@@ -18,4 +18,7 @@ router.route('/')
   .delete(positionController.delete)
   // 这个是搜索数据的路由
   // .search(positionController.search)
+  router.get("/one",positionController.findOne)
+  // 这里是更新的路由
+  router.post('/update',fileUpload.uploadfile, positionController.update)
 module.exports = router
