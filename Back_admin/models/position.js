@@ -27,11 +27,11 @@ const db=require("../utils/db");
         return this.positonModel.find({}).sort({_id: -1});
     }
     // 删除数据
-    delete(id){
-        console.log(id)
-        // 调用数据库函数进行数据的查找
-        return this.positonModel.findByIdAndRemove(id)
-    }
+    // delete(id){
+    //     console.log(id)
+    //     // 调用数据库函数进行数据的查找
+    //     return this.positonModel.findByIdAndRemove(id)
+    // }
     // 这个是定义的搜索函数，有可能删除
     search(companyName){
         // console.log(companyName);

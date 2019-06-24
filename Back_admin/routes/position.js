@@ -16,6 +16,6 @@ router.route('/')
   .post(fileUpload.uploadfile,positionController.save)
   // 这个是删除数据的路由
   .delete(positionController.delete)
-  // 这个是查询数据的路由
-  .search(positionController.search)
+  // 这个是搜索数据的路由
+  // .search(positionController.search)
 module.exports = router
