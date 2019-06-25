@@ -44,6 +44,10 @@ const db=require("../utils/db");
     update(id, update) {
         return this.positonModel.findByIdAndUpdate(id, update)
     }
+    // 查询部分数据
+    findMany({page,pagesize}){
+        return this.positonModel.find({}).skip(page*pagesize).limit(pagesize).sort({_id:-1})
+    }
 
 
     time(){

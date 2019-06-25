@@ -8,22 +8,30 @@ import randomstring from "randomstring"
 export const render = async (req, res, next) => {
   let result = await oAuth()
   if (result.data.isSignin) {
-    // $.ajax({
-    //   url:"api/position",
-    //   headers:{
-    //     "X-Access-Token":localStorage.getItem("token")
-    //   },
-    //   success(result){
-    //     // 动态添加职位展示的页面
-    //     res.render(positionTpl(
-    //       {
-    //         data: result.data,
-    //         hasResult: result.data.length > 0
-    //       }
-    //     ))
-    //   }
-    // })
+    let page=req.query&&req.query.page||0;
+    let pagesize=req.query&&req.query.pagesize||5;
+    var count=[];
+    $.ajax({
+      url:"api/position",
+      headers:{
+        "X-Access-Token":localStorage.getItem("token")
+      },
+      success(result){
+        let total=Math.ceil(result.data.length/pagesize);
+        for(var i=1;i<total+1;i++){
+          count.push(i);
+        }
+        // 动态添加职位展示的页面
+        // res.render(positionTpl(
+        //   {
+        //     // data: result.data,
+        //     // hasResult: result.data.length > 0
+        //   }
+        // ))
+      }
+    })
 // 这个是刚写的
+    
     $.ajax({
       url:"api/position/find",
       headers:{
@@ -34,11 +42,14 @@ export const render = async (req, res, next) => {
         pagesize
       },
       success(result){
+        console.log(result)
         // 动态添加职位展示的页面
         res.render(positionTpl(
           {
             data: result.data,
-            hasResult: result.data.length > 0
+            hasResult: result.data.length > 0,
+            url:location.hash.split('?')[0],
+            count
           }
         ))
       }
@@ -185,3 +196,8 @@ function bindPostionUpdateEvent(req,res){
   })
   
 }
+
+// Handlebars.registerHelper('formatnumber', function(num){
+//   num = 1;
+//   return num;
+// }); 

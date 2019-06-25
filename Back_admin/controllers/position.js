@@ -90,18 +90,20 @@ class PositionController {
   async findMany(req,res,next){
     // 保证发送的数据是json格式的
     res.set('Content-Type', 'application/json; charset=utf-8');
-    let {page=0,pagesize=5}=req.body;
+    console.log(req.query)
+    let {page=0,pagesize=5}=req.query;
     let result=await postionModel.findMany({page:~~page, pagesize:~~pagesize});
     if (result) {
       res.render('succ', {
-        data: JSON.stringify({
-          message: '数据修改成功.'
-        })
+        // 往前端返回数据
+        data: JSON.stringify(
+          result
+        )
       })
     } else {
       res.render('fail', {
         data: JSON.stringify({
-          message: '数据修改失败.'
+          message: '数据获取失败.'
         })
       })
     }
