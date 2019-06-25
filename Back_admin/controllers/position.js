@@ -86,6 +86,26 @@ class PositionController {
       })
     }
   }
+  // 这里是获取数据进行分页的
+  async findMany(req,res,next){
+    // 保证发送的数据是json格式的
+    res.set('Content-Type', 'application/json; charset=utf-8');
+    let {page=0,pagesize=5}=req.body;
+    let result=await postionModel.findMany({page:~~page, pagesize:~~pagesize});
+    if (result) {
+      res.render('succ', {
+        data: JSON.stringify({
+          message: '数据修改成功.'
+        })
+      })
+    } else {
+      res.render('fail', {
+        data: JSON.stringify({
+          message: '数据修改失败.'
+        })
+      })
+    }
+  }
   
 }
 

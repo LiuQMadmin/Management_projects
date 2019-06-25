@@ -8,10 +8,30 @@ import randomstring from "randomstring"
 export const render = async (req, res, next) => {
   let result = await oAuth()
   if (result.data.isSignin) {
+    // $.ajax({
+    //   url:"api/position",
+    //   headers:{
+    //     "X-Access-Token":localStorage.getItem("token")
+    //   },
+    //   success(result){
+    //     // 动态添加职位展示的页面
+    //     res.render(positionTpl(
+    //       {
+    //         data: result.data,
+    //         hasResult: result.data.length > 0
+    //       }
+    //     ))
+    //   }
+    // })
+// 这个是刚写的
     $.ajax({
-      url:"api/position",
+      url:"api/position/find",
       headers:{
         "X-Access-Token":localStorage.getItem("token")
+      },
+      data:{
+        page,
+        pagesize
       },
       success(result){
         // 动态添加职位展示的页面
