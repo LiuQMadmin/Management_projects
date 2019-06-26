@@ -36,7 +36,7 @@
       {{#if hasResult}}
       {{#each data}}
       <tr  data-id="{{_id}}">
-        <td>{{@index}}</td>
+        <td>{{num}}</td>
         <td><img width="50" height="50" src="http://localhost:3000/upload/{{companyLogo}}" alt=""></td>
         <td>{{companyName}}</td>
         <td>{{positionName}}</td>
@@ -60,13 +60,14 @@
   
   <div class="box-footer clearfix">
     <ul class="pagination pagination-sm no-margin pull-right">
-      <li><a href="#">&laquo;</a></li>
+      <li><a href="{{url}}?page={{before}}&pagesize=5" id="before">&laquo;</a></li>
       {{#each count}}
-      <li><a href="{{../url}}?page={{@index}}&pagesize=5" >{{this}}</a></li>
+      <li class="{{#if this.c}} active {{/if}}">
+      <a href="{{../url}}?page={{@index}}&pagesize=5" >{{this.a}}</a></li>
       {{/each}}
 
       {{!-- <li class="active"><a href="#">2</a></li> --}}
-      <li><a href="#">&raquo;</a></li>
+      <li><a href="{{url}}?page={{after}}&pagesize=5" id="after">&raquo;</a></li>
     </ul>
   </div>
 </div>

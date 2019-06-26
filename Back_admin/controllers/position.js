@@ -58,6 +58,7 @@ class PositionController {
     res.set("Content-type","application/json;charset=utf-8");
     
     let result=await postionModel.search(req.body.campanyName);
+   
     res.render("succ",{data:JSON.stringify(result)});
   }
   // 修改的数据返回展示
@@ -90,7 +91,6 @@ class PositionController {
   async findMany(req,res,next){
     // 保证发送的数据是json格式的
     res.set('Content-Type', 'application/json; charset=utf-8');
-    console.log(req.query)
     let {page=0,pagesize=5}=req.query;
     let result=await postionModel.findMany({page:~~page, pagesize:~~pagesize});
     if (result) {

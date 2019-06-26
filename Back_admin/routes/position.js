@@ -17,7 +17,7 @@ router.route('/')
   // 这个是删除数据的路由
   .delete(positionController.delete)
   // 这个是搜索数据的路由
-  // .search(positionController.search)
+  .search(positionController.search)
   // 这个是数据分页的路由
   router.get("/find",positionController.findMany)
   // 这个是更改数据时数据回填的路由

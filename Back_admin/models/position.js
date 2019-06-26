@@ -33,10 +33,10 @@ const db=require("../utils/db");
         return this.positonModel.findByIdAndRemove(id)
     }
     // 这个是定义的搜索函数，有可能删除
-    // search(companyName){
-    //     // console.log(companyName);
-    //     return this.positonModel.find({companyName});
-    // }
+    search(companyName){
+        // 根据公司名称进行查找
+        return this.positonModel.find({companyName});
+    }
     findOne(id){
         return this.positonModel.findById(id);
     }
