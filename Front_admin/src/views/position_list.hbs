@@ -65,17 +65,7 @@
       <li class="{{#if this.c}} active {{/if}}">
       <a href="{{../url}}?page={{@index}}&pagesize=5" >{{this.a}}</a></li>
       {{/each}}
-
-      {{!-- <li class="active"><a href="#">2</a></li> --}}
       <li><a href="{{url}}?page={{after}}&pagesize=5" id="after">&raquo;</a></li>
     </ul>
   </div>
 </div>
-
-
-  {{!-- Handlebars.registerHelper('formatnumber', function(num){
-          num = 1;
-          return num;
-    }); 
-    {{formatnumber num}}
-    --}}

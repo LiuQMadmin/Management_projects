@@ -165,29 +165,31 @@ function bindPositionListEvent(res){
 
 
 
-
-
-    // $.ajax({
-    //     url:"api/position",
-    //     type:"SEARCH",
-    //     data:{
-    //       // closest是找李这个按钮元素最近的tr元素,然后找到绑定的在tr上面的id
-    //       campanyName:$("#keywords").val()
-    //     },
-    //     headers:{
-    //       "X-Access-Token":localStorage.getItem("token")
-    //     },
-    //     success(result){
+    let campanyName=$("#keywords").val();
+    $.ajax({
+        url:"api/position",
+        type:"SEARCH",
+        data:{
+          // closest是找李这个按钮元素最近的tr元素,然后找到绑定的在tr上面的id
+          campanyName,
+        },
+        headers:{
+          "X-Access-Token":localStorage.getItem("token")
+        },
+        success(result){
           
-    //       // 动态添加职位展示的页面
-    //       res.render(positionTpl(
-    //         {
-    //           data: result.data,
-    //           hasResult: result.data.length > 0
-    //         }
-    //       ))
-    //     }
-    //   })
+          // 动态添加职位展示的页面
+          res.render(positionTpl(
+            {
+              data: result.data,
+              hasResult: result.data.length > 0,
+              count:[{"a":1}],
+            }
+          ))
+          $("#keywords").val(campanyName)
+
+        }
+      })
 
 
 
