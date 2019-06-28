@@ -31,6 +31,8 @@ app.use('/api/users', usersRouter);
 // 只有用户登录之后才可以管理职位
 // posRouter里面定义了多个二级路由，根据api后面跟的参数进行二级路由的选择
 app.use('/api/position', posRouter)
+// 为M站提供接口
+app.use('/fe/api/position', posRouter)
 
 
 
